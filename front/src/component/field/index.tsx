@@ -2,18 +2,37 @@ import React from "react";
 import "./index.css"
 
 interface InputField {
+    type ?: string,
     label ?: string,
-    type: string,
     placeholder ?: string,
     name ?: string,
     ClassName ?: string,
+    value?: string | number;
+	showPass?: boolean;
+    alert ?: string,
+	onPassVisibility?: () => void;
+    onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    
 }
 
-const Field: React.FC<InputField> = ({label, type, placeholder, name, ClassName}) => {
+const Field: React.FC<InputField> = ({label, type, placeholder, name, value, showPass = false, alert, onPassVisibility, onInput}) => {
+
+    const inputType = type === "password" && !showPass ? "password" : "text";
+
     return (
         <div className="field">
             <label className="field__label">{label}</label>
-            <input className="field__input" type={type} placeholder={placeholder} name={name}/>
+
+            <div className="field__input-wrapper">
+                <input className="field__input" type={type === "number" ? "number" : inputType} placeholder={placeholder} name={name} value={value} onInput={onInput} />
+
+                {type === "password" && (
+                    <span className={showPass ? "on" : "off"} onClick={onPassVisibility}>
+                    </span>
+
+                )}
+            </div>
+            {alert && <div className="alert">{alert}</div>}
         </div>
     )
 }

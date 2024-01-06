@@ -23,10 +23,10 @@ const WelcomePage: React.FC = () => {
                 <div className="welcome__buttons">
                     {/* Контейнер для кнопок без фону */}
                     <Link to="/signup">
-                        <Button text="Sign up" className="primary" />
+                        <Button className="primary"> Sign Up </Button>
                     </Link>
                     <Link to="/signin">
-                        <Button text="Sign in" className="secondary" />
+                        <Button className="secondary"> Sign In </Button>
                     </Link>
                 </div>
             </section>
