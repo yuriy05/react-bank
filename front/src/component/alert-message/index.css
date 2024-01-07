@@ -29,3 +29,7 @@
     background-position: center;
     background-size: contain;
 }
+
+.disabled {
+    display: none;
+}

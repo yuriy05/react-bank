@@ -7,7 +7,7 @@ interface AlertMessage {
     style ?: React.CSSProperties;
 }
 
-const Alert: React.FC<AlertMessage>= ({children, className, style}) => {
+const Alert: React.FC<AlertMessage>= ({children, className, style = {}}) => {
     return(
         <div className={`alert ${className}`} style={{...style}}>
             <span className="alert__icon"></span>

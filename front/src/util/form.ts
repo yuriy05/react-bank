@@ -108,6 +108,32 @@ export const reducer = (state: State, action: Action): State => {
 		case SET.SET_CODE:
 			return { ...state, code: action.payload };
 		
+            case SET.SET_AMOUNT:
+                return { ...state, amount: action.payload };
+            case SET.SET_SOURCE:
+                return { ...state, source: action.payload };
+            case SET.SET_PASSWORD_OLD:
+                return { ...state, passwordOld: action.payload };
+            case SET.SET_PASSWORD_NEW:
+                return { ...state, passwordNew: action.payload };
+    
+    
+            case SET.SET_MESSAGE_EMAIL:
+                return { ...state, messageE: action.payload };
+            case SET.SET_MESSAGE_PASSWORD:
+                return { ...state, messageP: action.payload };
+            case SET.SET_MESSAGE_CODE:
+                return { ...state, messageCode: action.payload };
+            case SET.SET_MESSAGE_SUM:
+                return { ...state, messageSum: action.payload };
+                case SET.SET_MESSAGE_SOURCE:
+                    return { ...state, messageSource: action.payload };
+            case SET.SET_MESSAGE_PASSWORD_OLD:
+                return { ...state, messagePO: action.payload };
+            case SET.SET_MESSAGE_PASSWORD_NEW:
+                return { ...state, messagePN: action.payload };
+            case SET.SET_MESSAGE_DATA:
+                return { ...state, messageData: action.payload };
 
 		case SET.TOGGLE_VISIBILITY:
 			return { ...state, showPass: !state.showPass };

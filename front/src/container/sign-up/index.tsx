@@ -1,9 +1,8 @@
 import React, { useReducer, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Page from "../../page/index";
-
 import "./index.css"
 
+import Page from "../../page/index";
 import Header from "../../component/header"
 import ArrowBack from "../../component/history-back";
 import Button from "../../component/buttons";
@@ -14,8 +13,11 @@ import { saveSession } from "../../util/session";
 import {validate, reducer, initialState, SET} from "../../util/form"
 
 
+interface SignUpPage {
+    children: React.ReactNode;
+}
 
-const SignUp: React.FC = () => {
+const SignUp: React.FC<SignUpPage> = ({children}) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -31,6 +33,7 @@ const SignUp: React.FC = () => {
         dispatch({ type: SET.SET_MESSAGE_PASSWORD, payload: errorMessage})
     }
 
+    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -93,7 +96,7 @@ const SignUp: React.FC = () => {
                         </span>
                     </p>
 
-                    <Button type="sumbit" className="primary"> Continue </Button>
+                    <Button type="submit" className="primary" > Continue </Button>
 
                     <Alert className={`alert--warn ${state.messageData} disabled`}>
                         {state.messageData}
