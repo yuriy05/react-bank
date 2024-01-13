@@ -6,38 +6,31 @@ import Header from "../../component/header";
 import Button from "../../component/buttons";
 import Alert from "../../component/alert-message";
 import Field from "../../component/field";
-
-import {validate, initialState, SET, reducer } from '../../util/form';
-import { getTokenSession, saveSession } from "../../util/session";
 import ArrowBack from "../../component/history-back";
 
-interface ConfirmPage {
+import {validate, initialState, SET, reducer } from '../../util/form';
+
+interface RecoveryProps {
     children: React.ReactNode;
 }
 
-const Confirm: React.FC<ConfirmPage> = ({ children }) => {
+const Recovery: React.FC<RecoveryProps> = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-	const handleCodeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const errorMessage = validate(e.target.value);
-		dispatch({ type: SET.SET_CODE, payload: e.target.value });
-		dispatch({ type: SET.SET_MESSAGE_CODE, payload: errorMessage });
+	const handleMailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const errorMessage = validate(e.target.value, "email");
+		dispatch({ type: SET.SET_EMAIL, payload: e.target.value });
+		dispatch({ type: SET.SET_MESSAGE_E, payload: errorMessage });
 	}
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const { code } = state;
+		const { email } = state;
+		const convertData = JSON.stringify({email})
 
-		if (!code) {			
-			dispatch({ type: SET.SET_MESSAGE_CODE, payload: `Enter your code!` });
-			return;
-		}
-
-		const convertData = JSON.stringify({code, token: getTokenSession(), getInfo:window.navigator.userAgent})
-			
 		try {
-			const res = await fetch('http://localhost:4000/signup-confirm', {
+			const res = await fetch('http://localhost:4000/recovery', {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -46,13 +39,15 @@ const Confirm: React.FC<ConfirmPage> = ({ children }) => {
 			})
 
 			const data = await res.json()
-
+			
 			if (!res.ok && data.field === 'data') {				
 				dispatch({ type: SET.SET_MESSAGE_DATA, payload: data.message });
 				return;
+			} else if (!res.ok && data.field === 'email') {
+				dispatch({ type: SET.SET_MESSAGE_E, payload: data.message });
+				return;
 			} else if (res.ok) {
-				saveSession(data.session)		
-				window.location.assign("/balance")
+				window.location.assign("/recovery-confirm");
 			}
 		} catch(err: any) {
 			console.error(err.message)
@@ -61,27 +56,27 @@ const Confirm: React.FC<ConfirmPage> = ({ children }) => {
 
     return (
         <Page>
-            <section className="confirm">
+            <section className="recovery">
                 <ArrowBack />
-                <Header title="Confirm" text=""/>
+                <Header title="Recover password" text="Choose a recovery method"/>
 
                 <form method="POST" onSubmit={handleSubmit}>
                     <div className="field__wrapper">
 						<Field
-						    onInput={handleCodeInput}
-							label="Code"
-							placeholder="Enter the received code"
-							alert={state.messageCode}
-							type="text"
-							value={state.code}
-							style={{ borderColor: state.messageCode ? 'rgb(217, 43, 73)' : '' }} 
+						    onInput={handleMailInput}
+							label="Email"
+							placeholder="Enter your email"
+							alert={state.messageE}
+							type="email"
+							value={state.email}
+							style={{ borderColor: state.messageE ? 'rgb(217, 43, 73)' : '' }} 
 							></Field>
 
 						<Button
 							type="submit"
 							className="button button--primary"
 						>
-							Confirm
+							Send Code
 						</Button>
 						
 						<Alert
@@ -96,4 +91,4 @@ const Confirm: React.FC<ConfirmPage> = ({ children }) => {
     )
 }
 
-export default Confirm;
+export default Recovery;

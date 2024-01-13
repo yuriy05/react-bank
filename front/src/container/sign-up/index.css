@@ -12,21 +12,7 @@
     gap: 12px;
 }
 
-.registration__title {
-    font-size: 24px;
-    font-weight: 500;
-    font-family: "Jost", sans-serif;
-    color: #121212;
-}
-
-.registration__subtitle {
-    font-size: 14px;
-    font-weight: 400;
-    font-family: "Jost", sans-serif;
-    color: #939199;
-}
-
-.registration__form {
+.field__wrapper {
     display: flex;
     flex-direction: column;
     gap: 20px;

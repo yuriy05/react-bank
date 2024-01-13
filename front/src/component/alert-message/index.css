@@ -25,6 +25,9 @@
 
 .alert__icon {
     background-image: url("../../../public/svg/alert.svg");
+    height: 16px;
+    width: 16px;
+    display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;

@@ -13,7 +13,6 @@ interface InputField {
     alert ?: string,
 	onPassVisibility?: () => void;
     onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    
 }
 
 const Field: React.FC<InputField> = ({label, type = "text", style, placeholder, name, value, showPass = false, alert, onPassVisibility, onInput}) => {

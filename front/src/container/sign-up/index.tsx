@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import { Link } from "react-router-dom";
 import "./index.css"
 
@@ -20,63 +20,66 @@ interface SignUpPage {
 const SignUp: React.FC<SignUpPage> = ({children}) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
+	
+	const handleMailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const errorMessage = validate(e.target.value, 'email');
+		dispatch({ type: SET.SET_EMAIL, payload: e.target.value });
+		dispatch({ type: SET.SET_MESSAGE_E, payload: errorMessage });
+	}
 
-    const handleEmailField = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const errorMessage = validate(e.target.value, "email");
-        dispatch({ type: SET.SET_EMAIL, payload: e.target.value });
-        dispatch({ type: SET.SET_MESSAGE_EMAIL, payload: errorMessage})
-    }
+	const handlePassInput = (e: React.ChangeEvent<HTMLInputElement>) =>  {		
+		const errorMessage = validate(e.target.value,'password');
+		dispatch({ type: SET.SET_PASSWORD, payload: e.target.value });
+		dispatch({ type: SET.SET_MESSAGE_P, payload: errorMessage });
+	}
 
-    const handlePasswordField = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const errorMessage = validate(e.target.value, "password");
-        dispatch({ type: SET.SET_PASSWORD, payload: e.target.value });
-        dispatch({ type: SET.SET_MESSAGE_PASSWORD, payload: errorMessage})
-    }
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		
+		const { email, password } = state;
 
-    
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+		const emailError = validate(email, 'email');
+		const passwordError = validate(password, 'password');
 
-        const { email, password } = state;
+		if (emailError || passwordError) {
+			dispatch({ type: SET.SET_MESSAGE_DATA, payload: 'Please fix the errors before submitting.' });
+			return;
+		}
+		const convertData = JSON.stringify({email, password})
 
-        const emailError = validate(email, "email");
-        const passwordError = validate(password, "password");
+		try {
+			const res = await fetch('http://localhost:4000/signup', {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: convertData,
+			})
 
-        if ( emailError || passwordError ) {
-            dispatch({type: SET.SET_MESSAGE_DATA, payload: "Fix error before action"});
-            return;
-        }
-        const convertData = JSON.stringify({email, password})
+			const data = await res.json()
 
-        try {
-            const res = await fetch("http://localhost:4000/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: convertData,
-        })
+			if (!res.ok && data.field === 'data') {				
+				dispatch({ type: SET.SET_MESSAGE_DATA, payload: data.message });
+				return;
+			} else if (!res.ok && data.field === 'email') {
+				dispatch({ type: SET.SET_MESSAGE_E, payload: data.message });
+				return;
+			} else if (!res.ok && data.field === 'password') {
+				dispatch({ type: SET.SET_MESSAGE_P, payload: data.message });
+				return;
+			} else if (res.ok) {					
+				saveSession(data.initSession);
+				window.location.assign("/signup-confirm");
+			}
+			
+		} catch(err: any) {
+			console.error(err.message)
+		}
+	}
 
-        const data = await res.json()
-
-        if (!res.ok && data.field === "data") {
-            dispatch({type: SET.SET_MESSAGE_DATA, payload: data.message })
-            return;
-        } else if (!res.ok && data.field === "email") {
-            dispatch({ type: SET.SET_MESSAGE_EMAIL, payload: data.message });
-            return;
-        } else if (res.ok) {
-            saveSession(data.initSession);
-            window.location.assign("/signup-confirm");
-        }
-        } catch(err: any) {
-            console.error(err.message)
-        }
-    }
-
-    const handlePassVisibility = () => {
-        dispatch({ type: SET.TOGGLE_VISIBILITY})
-    }
+	const handlePassVisibility = () => {
+		dispatch({ type: SET.TOGGLE_VISIBILITY });
+	};
 
     return (
         <Page>
@@ -85,23 +88,49 @@ const SignUp: React.FC<SignUpPage> = ({children}) => {
 
                 <Header title="Sign Up" text="Choose a registration method" />
 
-                <form className="registration__form" method="POST" onSubmit={handleSubmit}>
-                    <Field label="Email" type="email" placeholder="Enter your email" name="email" onInput={handleEmailField} value={state.email} alert={state.messageE}/>
-                    <Field label="Password" type="password" placeholder="Enter your password" name="password" onInput={handlePasswordField} value={state.password} showPass={state.showPass} onPassVisibility={handlePassVisibility} alert={state.messageP}/>
+                <form method="POST" onSubmit={handleSubmit}> 
+                <div className="field__wrapper">
+						<Field
+							onInput={handleMailInput}
+							label="Email"
+							placeholder="Enter Your Email"							
+							alert={state.messageE}
+							type="email"
+							value={state.email}
+							style={{ borderColor: state.messageE ? 'rgb(217, 43, 73)' : '' }} 
+						></Field>
+						<Field
+							onInput={handlePassInput}
+							label="Password"
+							alert={state.messageP}
+							placeholder="Enter Your Password"
+							type="password"
+							value={state.password}
+							style={{ borderColor: state.messageP ? 'rgb(217, 43, 73)' : '' }} 
 
-                    <p className="registration__text">Already have an account? <span className="registration__text registration__text--purple">
-                        <Link to="/signin">
-                            Sign In
-                        </Link>
-                        </span>
-                    </p>
+							showPass={state.showPassword}
+							onPassVisibility={handlePassVisibility}
+						></Field>
 
-                    <Button type="submit" className="primary" > Continue </Button>
+						<div>
+							Already have an account? 
+							<Link to="/signin"> Sign In</Link>
+						</div>
 
-                    <Alert className={`alert--warn ${state.messageData} disabled`}>
-                        {state.messageData}
-                    </Alert>
-                </form>
+						<Button
+							type="submit"
+							className="button button--primary"
+						>
+							Continue
+						</Button>
+
+						<Alert
+								className={`alert--warn ${state.messageData}disabled`}
+							>
+								{state.messageData}
+						</Alert>
+                    </div>
+				</form>
            </section>
         </Page>
     )
