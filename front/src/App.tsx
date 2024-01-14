@@ -4,8 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WelcomePage from "./container/welcome";
 import SignUpPage from "./container/sign-up";
 import SignInPage from "./container/sign-in";
-import Confirm from "./container/confirm";
-import RecoveryPage from "./container/recovery"
+import Confirm from "./container/signup-confirm";
+import RecoveryPage from "./container/recovery";
+import RecoveryConfirmPage from "./container/recovery-confirm"
 import BalancePage from "./container/balance";
 
 
@@ -49,18 +50,21 @@ function App() {
             <WelcomePage />
           </AuthRoute>
         }/>
+
         <Route path="/signup"
          element={
           <AuthRoute>
             <SignUpPage children/>
           </AuthRoute>
         }/>
+
         <Route path="/signup-confirm"
          element={
           <AuthRoute>
             <Confirm children/>
           </AuthRoute>
         }/>
+
         <Route path="/signin"
          element={
           <AuthRoute>
@@ -72,6 +76,13 @@ function App() {
          element={
           <AuthRoute>
             <RecoveryPage children/>
+          </AuthRoute>
+        }/>
+
+        <Route path="/recovery-confirm"
+         element={
+          <AuthRoute>
+            <RecoveryConfirmPage children/>
           </AuthRoute>
         }/>
 

@@ -47,7 +47,7 @@ router.post('/signup', function (req, res) {
 //=================================================
 
 router.post('/signup-confirm', function (req, res) {	
-	const { code, token, getInfo } = req.body
+	const { code, token } = req.body
 
 	if (!code) {
 		return res.status(400).json({
@@ -92,7 +92,7 @@ router.post('/signup-confirm', function (req, res) {
 
 		console.log(user)
 
-		Notification.create({action:'sign up', name:user.email , info:getInfo});
+		// Notification.create({action:'sign up', name:user.email , info:getInfo});
 				
 		return res.status(200).json({
 			message: `Welcome!`,
@@ -100,10 +100,11 @@ router.post('/signup-confirm', function (req, res) {
 			})
 			
 	} catch (err) {
-		return res.status(400).json({
-			message: `Error verifying new user.`,
-			field: 'data',
-		})
+		console.error(err);
+    	return res.status(400).json({
+    	    message: `Error verifying new user: ${err.message}`,
+    	    field: 'data',
+    	});
 	}
 })
 
@@ -154,7 +155,7 @@ router.post("/signin", function(req, res) {
     }
 })
 
-//=================================================
+//===================================================
 
 router.post("/recovery", function(req, res) {
     const { email } = req.body
@@ -191,5 +192,45 @@ router.post("/recovery", function(req, res) {
     }
 })
 
-//=================================================
+//===================================================
+
+router.post("/recovery-confirm", function(req, res) {
+	const { code, password, getInfo } = req.body
+
+	if (!code) {
+		return res.status(400).json({
+			message: "Enter your code!",
+		})
+	}
+
+	try {
+		const email = Confirm.getData(Number(code));
+
+		if (!email) {
+			return res.status(400).json({
+				message: "This code is wrong!",
+				field: "data",
+			})
+		}
+
+		const user = User.getByData(email);
+		console.log("Initial: ", user);
+
+		User.updateData(user, typeNewData="password", password);
+		console.log("Updated: ", user);
+
+		Notification.create({action:'data recovery', name:user.email , info:getInfo});
+
+		return res.status(200).json({
+			message: "Sign In with new password!",
+		})
+	} catch (e) {
+		return res.status(400).json({
+			message: "Password change error. Check your code or try again",
+			field: "data",
+		})
+	}
+})
+
+//===================================================
 module.exports = router

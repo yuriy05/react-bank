@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 import Page from "../../page";
@@ -16,6 +17,7 @@ interface ConfirmPage {
 }
 
 const Confirm: React.FC<ConfirmPage> = ({ children }) => {
+	const navigate = useNavigate();
     const [state, dispatch] = useReducer(reducer, initialState);
 
 	const handleCodeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +28,6 @@ const Confirm: React.FC<ConfirmPage> = ({ children }) => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		const { code } = state;
 
 		if (!code) {			
@@ -51,8 +52,8 @@ const Confirm: React.FC<ConfirmPage> = ({ children }) => {
 				dispatch({ type: SET.SET_MESSAGE_DATA, payload: data.message });
 				return;
 			} else if (res.ok) {
-				saveSession(data.session)		
-				window.location.assign("/balance")
+				saveSession(data.session);		
+				navigate("/balance");
 			}
 		} catch(err: any) {
 			console.error(err.message)
