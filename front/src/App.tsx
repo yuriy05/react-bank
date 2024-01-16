@@ -19,7 +19,7 @@ const PrivateRoute: React.FC<{children: React.ReactNode}> = ({children}) => {
 
 const AuthRoute: React.FC<{children: React.ReactNode}> = ({children}) => {
 	const isLogged = useContext(AuthContext)
-	return isLogged ? <BalancePage/> : <>{children}</> 
+	return isLogged ? <BalancePage children/> : <>{children}</> 
 }; 
 
 
@@ -89,7 +89,7 @@ function App() {
          <Route path="/balance"
          element={
            <PrivateRoute>
-             <BalancePage />
+             <BalancePage children/>
            </PrivateRoute>
          }
          />

@@ -9,6 +9,14 @@ const { Session } = require("../class/session")
 const { User } = require("../class/user")
 const { Confirm } = require("../class/confirm")
 
+
+User.create({
+	email: 'neo@mail.com',
+	password: 'neoneoNEO5',
+});
+	User.userConfirm('neo@mail.com');
+
+
 //===================================================
 
 router.post('/signup', function (req, res) {	

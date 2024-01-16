@@ -1,9 +1,17 @@
 import React from "react";
 import "./index.css";
 
-const BalancePage: React.FC = () => {
+import Page from "../../page";
+
+interface BalancePageProps {
+    children: React.ReactNode;
+}
+
+const BalancePage: React.FC<BalancePageProps> = () => {
     return(
-        <h1>Hello world</h1>
+        <Page>
+            <h1 style={{textAlign:"center", margin: "20px 0 0 0"}}>Balance page</h1>
+        </Page>
     )
 }
 

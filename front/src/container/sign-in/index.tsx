@@ -62,7 +62,7 @@ const SignIn: React.FC<SignInProps> = ({children}) => {
             }
 
         } catch(e: any) {
-            console.error(e.message)
+            console.error(e)
         }
     }
 
