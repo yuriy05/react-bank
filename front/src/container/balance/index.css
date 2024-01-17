@@ -1,0 +1,36 @@
+.balance {
+    
+}
+
+.balance__heading {
+    background-image: url("/public/img/balance-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 60px 20px 66px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.balance__menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.balance__amount {
+    text-align: center;
+
+    color: #FFFFFF;
+    font-size: 34px;
+    font-family: "Jost", sans-serif;
+    font-weight: 600;
+}
+
+.balance__amount-cent {
+    font-weight: 400;
+}
+
+

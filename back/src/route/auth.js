@@ -157,7 +157,7 @@ router.post("/signin", function(req, res) {
 		        
     } catch (e) {
         return res.status(400).json({
-            message: "Enter valid user",
+            message: "Enter valid email or check your password and try again",
             field: "data",
         })
     }
