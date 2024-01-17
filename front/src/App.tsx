@@ -18,7 +18,7 @@ const PrivateRoute: React.FC<{children: React.ReactNode}> = ({children}) => {
 };
 
 const AuthRoute: React.FC<{children: React.ReactNode}> = ({children}) => {
-	const isLogged = useContext(AuthContext)
+	const isLogged = useContext(AuthContext) 
 	return isLogged ? <BalancePage children/> : <>{children}</> 
 }; 
 
