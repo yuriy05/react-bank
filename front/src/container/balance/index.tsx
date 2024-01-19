@@ -45,7 +45,7 @@ const BalancePage: React.FC<BalancePageProps> = () => {
 
     return(
         <Page>
-            <section className="balance">
+            <section className="balance-page">
                 <div className="balance__heading">
                     <div className="balance__menu">
 

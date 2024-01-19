@@ -22,15 +22,15 @@ Transaction.create({
 })
 
 Notification.create({
-	action:'notification', 
-	name:'Bank Corp.' , 
-	info: 'Congradulations! Your Welcome bonus is $50'
+	action: "notification", 
+	name: "Bank Corp." , 
+	info: "Congradulations! Enjoy to use our bank."
 });
 
 Notification.create({
-	action:'sign up', 
-	name:'anonimous@anonim.com' , 
-	info: `(Linux)`
+	action: "sign up", 
+	name: "anonimous@anonim.com" , 
+	info: "(Linux)"
 });
 
 //===================================================
@@ -40,6 +40,52 @@ router.get("/balance", function(req, res) {
 		balance: Transaction.getBalance(),
 		list: Transaction.getList().reverse(),
 		notifications: Notification.getUnread().length,
+	});
+});
+
+//===================================================
+
+router.post("/send", function(req, res) {
+	const { source, amount, type} = req.body
+
+	if (!source || !amount) {
+		return res.status(400).json({
+			message: "You have to fill all fields.",
+		})
+	}
+
+	try {
+		const balance = Transaction.getBalance()
+
+		if (type === "send" && amount > balance) {
+			return res.status(400).json({
+				message: "Your balance is insufficient for the transaction",
+				field: "data",
+			});
+		};
+
+		const newTransaction = Transaction.create({ source, amount, type});
+		console.log(newTransaction);
+
+		return res.status(200).json({
+			message: "Success",
+			newTransaction,
+		})
+
+	} catch (e) {
+		return res.status(400).json({
+			message: e.message,
+		})
+	}
+});
+
+//===================================================
+
+router.get("/transaction", function(req, res) {
+	const id = Number(req.query.id)
+
+	res.json({
+		info: Transaction.getById(id),
 	});
 });
 

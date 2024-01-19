@@ -1,4 +1,4 @@
-.balance {
+.balance-page {
     display: flex;
     flex-direction: column;
     gap: 88px;
@@ -50,7 +50,7 @@
 
 
 .icon-button {
-    border: 10px solid #FFFFFF;
+    border: 10px solid #F5F5F7;
     border-radius: 100px;
     padding: 12px;
     grid-row: 1;
@@ -59,7 +59,7 @@
 
 .icon-button:hover {
     background: linear-gradient(to right, #5B94E9, #87CEEB);
-    transition: background 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .icon-button--actions {

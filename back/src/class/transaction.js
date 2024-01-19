@@ -2,7 +2,7 @@ const getDate = (time) => {
     const date = new Date(time);
 
     const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const month =  new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date)
     const hours = date.getHours().toString().padStart(2, "0");
     const minutes = date.getMinutes().toString().padStart(2, "0");
 
@@ -21,7 +21,7 @@ class Transaction {
         this.amount = Number(amount);
         this.source = String(source).toLowerCase();
 
-        this.transationId = Transaction.#count++;
+        this.transactionId = Transaction.#count++;
         this.date = getDate(new Date().getTime());
 
         if (this.type === "send" && this.amount < Transaction.#balance) {
@@ -41,19 +41,22 @@ class Transaction {
         return Transaction.#balance;
     };
 
-    static getById(transationId) {
-        return this.#list.find((item) => item.transationId === Number(transationId)) || null
-    }
+    static getById(transactionId) {
+		return (
+			this.#list.find((item) => item.transactionId === Number(transactionId))
+			 || null
+		)
+	}
 
-    static getList = () => {
-        return Transaction.#list.map((transaction) => ({
-            id: transaction.transationId,
-            type: transaction.type,
-            amount: transaction.amount,
-            source: transaction.source,
-            date: transaction.date,
-        }));
-    }
+	static getList = () => {
+		return Transaction.#list.map((transaction) => ({
+			id: transaction.transactionId,
+			type: transaction.type,
+			amount: transaction.amount,
+			source: transaction.source,
+			date: transaction.date,
+		}));
+	}
 };
 
 module.exports = { Transaction };
