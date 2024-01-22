@@ -90,4 +90,27 @@ router.get("/transaction", function(req, res) {
 });
 
 //===================================================
+
+router.get("/notifications", function(req, res) {
+	res.json(Notification.getList());
+})
+
+//===================================================
+
+router.get("/notifications/update", function(req, res) {
+	const id = Number(req.query.id);
+
+	try {
+		const updated = Notification.update(id);
+
+		if (!updated) {
+			throw new Error("Notification not found");
+		}
+
+		res.json({ success: true })
+	} catch (e) {
+		console.error("Error updating ifUnread status: ", e)
+	}
+})
+
 module.exports = router

@@ -10,6 +10,7 @@ import RecoveryConfirmPage from "./container/recovery-confirm"
 import BalancePage from "./container/balance";
 import SendPage from "./container/send";
 import TransactionPage from "./container/transaction";
+import NotificationPage from "./container/notification";
 
 
 const AuthContext = createContext<boolean | null>(null);
@@ -108,6 +109,14 @@ function App() {
           element={
             <PrivateRoute>
               <TransactionPage children/>
+            </PrivateRoute>
+          }
+         />
+
+         <Route path="/notifications"
+          element={
+            <PrivateRoute>
+              <NotificationPage children/>
             </PrivateRoute>
           }
          />

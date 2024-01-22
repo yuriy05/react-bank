@@ -49,7 +49,7 @@ const Transaction: React.FC<transactionProps> = ({children, className = ""}) => 
         <Page>
             <section className="transaction-page">
                 <div className="transaction__heading">
-                    <ArrowBack />
+                    <ArrowBack path="/balance"/>
                     <Header title="Transaction" className="heading__title--account"/>
                 </div>
 
