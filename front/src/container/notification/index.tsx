@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 
 import Page from "../../page";
-import Header from "../../component/header";
-import ArrowBack from "../../component/history-back";
+import AccountHeader from "../../component/account-header";
+import ArrowBack from "../../component/back-button";
 import Alert from "../../component/alert-message";
 import List from "../../component/list";
 
@@ -68,10 +68,10 @@ const Notification: React.FC<notificationProps> = ({ children }) => {
     return (
         <Page>
             <section className="notifications">
-                <div className="notifications__heading">
-                    <ArrowBack path="/balance" />
-                    <Header title="Notifications" className="heading__title--account" />
-                </div>
+
+                <AccountHeader title="Notifications">
+                    <ArrowBack />
+                </AccountHeader>
 
                 <div className="notifications__list">
                     {data.length !== 0

@@ -10,7 +10,7 @@ const { Notification } = require("../class/notification");
 const { Transaction } = require("../class/transaction")
 
 Transaction.create({
-	type: "send",
+	type: "receive",
 	amount: 1000,
 	source: "owner@mail.com"
 })
@@ -112,5 +112,69 @@ router.get("/notifications/update", function(req, res) {
 		console.error("Error updating ifUnread status: ", e)
 	}
 })
+
+//===================================================
+
+router.post("/receive", function(req, res) {
+	const { amount, source, type } = req.body 
+
+	if (!amount) {
+		return res.status(400).json({
+			message: "Enter the amount !",
+		})
+	}
+
+	try {
+		const newTransaction = Transaction.create({type, amount, source});
+		console.log(newTransaction);
+
+		return res.status(200).json({
+			message: "Success!",
+			newTransaction,
+		})
+	} catch (e) {
+		return res.status(400).json({
+			message: "Error. Transaction is not comleted.",
+			field: "data",
+		})
+	}
+})
+//===================================================
+
+router.post("/settings", function(req, res) {
+	const { currentData, typeNewData, newData, customerId } = req.body
+	console.log(currentData, newData, customerId)
+
+	try {
+		const user = User.getByData(customerId)
+		console.log(user)
+
+		if (!user) {
+			return res.status(400).json({
+				message: "User with this data is absent in the server storage.",
+				field: "data",
+			})
+		} else if (user.password !== currentData) {
+			return res.status(400).json({
+				message: "Current data is not correct.",
+				field: "password",
+			})
+		}
+
+		User.updateData(user, typeNewData, newData)
+		console.log("Updated user: ", user)
+
+		return res.status(200).json({
+			message: "Updated successful!",
+		})
+	} catch (e) {
+		return res.status(400).json({
+			message: "Error, data not updated",
+			field: "data",
+		})
+	}
+})
+
+//===================================================
 
 module.exports = router

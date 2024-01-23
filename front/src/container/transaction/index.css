@@ -6,19 +6,19 @@
     gap: 32px;
 }
 
-.transaction__heading {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-}
-
 .amount {
     text-align: center;
     font-size: 38px;
     font-weight: 500;
-    color: #ea4614;
     font-family: "Jost", sans-serif;
+}
+
+.amount--receive {
+    color: #24B277;
+}
+
+.amount--send {
+    color: #ea4614;
 }
 
 .card {
