@@ -7,6 +7,7 @@ import ArrowBack from "../../component/back-button";
 import Header from "../../component/header";
 import Field from "../../component/field";
 import Alert from "../../component/alert-message";
+import Section from "../../component/section";
 import { Link } from "react-router-dom";
 import { validate, initialState, SET, reducer } from "../../util/form";
 import { saveSession } from "../../util/session";
@@ -72,8 +73,8 @@ const SignIn: React.FC<SignInProps> = ({ children }) => {
 
     return (
         <Page>
-            <section className="login">
-                <ArrowBack />
+            <Section>
+                <ArrowBack path="/"/>
 
                 <Header title="Sign In" text="Select login method" />
 
@@ -101,9 +102,9 @@ const SignIn: React.FC<SignInProps> = ({ children }) => {
                             onPassVisibility={handlePassVisibility}
                         ></Field>
 
-                        <div>
-                            Forgot your password? <Link to="/recovery">Recovery</Link>
-                        </div>
+                        <p className="text">
+                            Forgot your password? <Link to="/recovery"><span className="text--purple">Recovery</span></Link>
+                        </p>
 
                         <Button
                             type="submit"
@@ -119,7 +120,7 @@ const SignIn: React.FC<SignInProps> = ({ children }) => {
                         </Alert>
                     </div>
                 </form>
-            </section>
+            </Section>
         </Page>
     )
 }

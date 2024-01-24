@@ -50,13 +50,13 @@ const BalancePage: React.FC<BalancePageProps> = () => {
                     <div className="balance__menu">
 
                         <Link to="/settings">
-                            <img src="/svg/settings.svg" />
+                            <img className="icon" src="/svg/settings.svg" />
                         </Link>
 
                         <p style={{ fontSize: "16px", color: "white", fontFamily: "Jost", fontWeight: "400" }}>Main wallet</p>
 
                         <Link to="/notifications">
-                            <img src="/svg/notifications.svg" />
+                            <img className="icon" src="/svg/notifications.svg" />
                         </Link>
 
                     </div>

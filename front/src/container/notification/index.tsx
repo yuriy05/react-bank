@@ -6,6 +6,7 @@ import AccountHeader from "../../component/account-header";
 import ArrowBack from "../../component/back-button";
 import Alert from "../../component/alert-message";
 import List from "../../component/list";
+import Section from "../../component/section";
 
 interface notificationProps {
     children: React.ReactNode
@@ -67,7 +68,7 @@ const Notification: React.FC<notificationProps> = ({ children }) => {
 
     return (
         <Page>
-            <section className="notifications">
+           <Section>
 
                 <AccountHeader title="Notifications">
                     <ArrowBack />
@@ -95,7 +96,7 @@ const Notification: React.FC<notificationProps> = ({ children }) => {
                     }
                 </div>
 
-            </section>
+            </Section>
         </Page>
     )
 }

@@ -6,6 +6,7 @@ import Page from "../../page";
 import AccountHeader from "../../component/account-header";
 import ArrowBack from "../../component/back-button";
 import Divider from "../../component/divider";
+import Section from "../../component/section";
 
 
 interface transactionProps {
@@ -47,7 +48,7 @@ const Transaction: React.FC<transactionProps> = ({ children, className = "" }) =
 
     return (
         <Page>
-            <section className="transaction-page">
+            <Section>
                 <AccountHeader title="Transaction">
                     <ArrowBack path="/balance"/>
                 </AccountHeader>
@@ -72,7 +73,7 @@ const Transaction: React.FC<transactionProps> = ({ children, className = "" }) =
                         <p>{info?.type}</p>
                     </div>
                 </div>
-            </section>
+            </Section>
         </Page>
     )
 }

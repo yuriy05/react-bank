@@ -7,6 +7,7 @@ import Header from "../../component/header";
 import Button from "../../component/buttons";
 import Alert from "../../component/alert-message";
 import Field from "../../component/field";
+import Section from "../../component/section";
 
 import { validate, initialState, SET, reducer } from '../../util/form';
 import { getTokenSession, saveSession } from "../../util/session";
@@ -62,7 +63,7 @@ const Confirm: React.FC<ConfirmPage> = ({ children }) => {
 
 	return (
 		<Page>
-			<section className="confirm">
+			<Section>
 				<ArrowBack />
 				<Header title="Confirm" text="" />
 
@@ -92,7 +93,7 @@ const Confirm: React.FC<ConfirmPage> = ({ children }) => {
 						</Alert>
 					</div>
 				</form>
-			</section>
+			</Section>
 		</Page>
 	)
 }

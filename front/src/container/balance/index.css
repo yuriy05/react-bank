@@ -57,9 +57,16 @@
     background: #5B94E9;
 }
 
+.icon {
+    transition: transform 0.3s;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
 .icon-button:hover {
     background: linear-gradient(to right, #5B94E9, #87CEEB);
-    transition: 0.3s ease;
 }
 
 .icon-button--actions {

@@ -7,6 +7,7 @@ import ArrowBack from "../../component/back-button";
 import Header from "../../component/header";
 import Field from "../../component/field";
 import Alert from "../../component/alert-message";
+import Section from "../../component/section";
 import { validate, initialState, SET, reducer } from "../../util/form";
 
 interface RecoveryConfirmProps {
@@ -71,7 +72,7 @@ const RecoveryConfirm: React.FC<RecoveryConfirmProps> = ({ children }) => {
 
     return (
         <Page>
-            <section className="recovery-confirm">
+            <Section>
                 <ArrowBack path="/balance"/>
 
                 <Header title="Recover password" text="Write the code you received" />
@@ -113,7 +114,7 @@ const RecoveryConfirm: React.FC<RecoveryConfirmProps> = ({ children }) => {
                         </Alert>
                     </div>
                 </form>
-            </section>
+            </Section>
         </Page>
     )
 }

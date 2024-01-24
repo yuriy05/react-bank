@@ -7,6 +7,7 @@ import Button from "../../component/buttons";
 import Alert from "../../component/alert-message";
 import Field from "../../component/field";
 import ArrowBack from "../../component/back-button";
+import Section from "../../component/section";
 
 import { validate, initialState, SET, reducer } from '../../util/form';
 
@@ -56,7 +57,7 @@ const Recovery: React.FC<RecoveryProps> = ({ children }) => {
 
 	return (
 		<Page>
-			<section className="recovery">
+			<Section>
 				<ArrowBack />
 				<Header title="Recover password" text="Choose a recovery method" />
 
@@ -86,7 +87,7 @@ const Recovery: React.FC<RecoveryProps> = ({ children }) => {
 						</Alert>
 					</div>
 				</form>
-			</section>
+			</Section>
 		</Page>
 	)
 }

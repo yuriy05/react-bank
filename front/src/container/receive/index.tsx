@@ -3,7 +3,7 @@ import "./index.css";
 
 import Page from "../../page";
 import AccountHeader from "../../component/account-header";
-import Header from "../../component/header";
+import Section from "../../component/section";
 import ArrowBack from "../../component/back-button";
 import Field from "../../component/field";
 import Divider from "../../component/divider";
@@ -60,8 +60,8 @@ const Receive: React.FC<receiveProps> = ({ children }) => {
     }
     return (
         <Page>
-            <section className="receive">
-
+            <Section>
+                
                 <AccountHeader title="Receive">
                     <ArrowBack />
                 </AccountHeader>
@@ -103,7 +103,8 @@ const Receive: React.FC<receiveProps> = ({ children }) => {
                         onItemClick={() => handleItemClick("Coinbase")}
                     />
                 </div>
-            </section>
+           
+            </Section>
         </Page>
     )
 }

@@ -13,7 +13,7 @@ const ArrowBack: React.FC<backButton> = ({ path = ""}) => {
 
     return(
         <span style={{display: "inline"}}>
-            <img onClick={() => path ? window.location.assign(path) : navigate(-1)}
+            <img onClick={() => path ? navigate(path) : navigate(-1)}
                  src="/svg/back-arrow.svg"
                  alt="back button"
                 className="arrow-back__image"/>

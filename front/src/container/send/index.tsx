@@ -7,6 +7,7 @@ import ArrowBack from "../../component/back-button";
 import Field from "../../component/field";
 import Button from "../../component/buttons";
 import Alert from "../../component/alert-message";
+import Section from "../../component/section";
 
 import { validate, SET, initialState, reducer } from "../../util/form";
 
@@ -72,7 +73,7 @@ const Send: React.FC<sendProps> = ({ children }) => {
 
     return (
         <Page>
-            <section className="send">
+            <Section>
 
                 <AccountHeader title="Send">
                     <ArrowBack />
@@ -107,7 +108,7 @@ const Send: React.FC<sendProps> = ({ children }) => {
                         </Alert>
                     </div>
                 </form>
-            </section>
+            </Section>
         </Page>
     )
 }

@@ -8,6 +8,7 @@ import ArrowBack from "../../component/back-button";
 import Button from "../../component/buttons";
 import Field from "../../component/field";
 import Alert from "../../component/alert-message";
+import Section from "../../component/section";
 
 import { saveSession } from "../../util/session";
 import { validate, reducer, initialState, SET } from "../../util/form"
@@ -83,8 +84,8 @@ const SignUp: React.FC<SignUpPage> = ({ children }) => {
 
 	return (
 		<Page>
-			<section className="registration">
-				<ArrowBack />
+			<Section>
+				<ArrowBack path="/"/>
 
 				<Header title="Sign Up" text="Choose a registration method" />
 
@@ -113,9 +114,9 @@ const SignUp: React.FC<SignUpPage> = ({ children }) => {
 							onPassVisibility={handlePassVisibility}
 						></Field>
 
-						<div>
-							Already have an account? <Link to="/signin">Sign In</Link>
-						</div>
+						<p className="text">
+							Already have an account? <Link to="/signin"><span className="text--purple">Sign In</span></Link>
+						</p>
 
 						<Button
 							type="submit"
@@ -131,7 +132,7 @@ const SignUp: React.FC<SignUpPage> = ({ children }) => {
 						</Alert>
 					</div>
 				</form>
-			</section>
+			</Section>
 		</Page>
 	)
 }

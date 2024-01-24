@@ -8,7 +8,7 @@ const router = express.Router()
 const { Session } = require("../class/session")
 const { User } = require("../class/user")
 const { Confirm } = require("../class/confirm")
-
+const { Notification } = require("../class/notification")
 
 User.create({
 	email: 'neo@mail.com',
@@ -101,7 +101,7 @@ router.post('/signup-confirm', function (req, res) {
 
 		console.log(user)
 
-		Notification.create({action:'sign up', name:user.email , info:getInfo});
+		Notification.create({action:'sign up', name:user.email});
 				
 		return res.status(200).json({
 			message: `Welcome!`,
@@ -190,7 +190,7 @@ router.post("/recovery", function(req, res) {
         Confirm.create(user.email);
         console.log("Recover with this code: ", Confirm.getCode(user.email))
 
-		Notification.create({action:"sign in", name:user.email , info:getInfo});
+		Notification.create({action:"sign in", name:user.email});
 
         return res.status(200).json({
             message: "Check your email to find the code!",
@@ -230,7 +230,7 @@ router.post("/recovery-confirm", function(req, res) {
 		User.updateData(user, typeNewData="password", password);
 		console.log("Updated: ", user);
 
-		Notification.create({action:"data recovery", name:user.email , info:getInfo});
+		Notification.create({action:"data recovery", name:user.email});
 
 		return res.status(200).json({
 			message: "Sign In with new password!",

@@ -8,6 +8,7 @@ import Field from "../../component/field";
 import Alert from "../../component/alert-message";
 import Button from "../../component/buttons";
 import Divider from "../../component/divider";
+import Section from "../../component/section";
 
 import { SET, reducer, validate, initialState } from "../../util/form";
 
@@ -167,7 +168,7 @@ const Settings: React.FC<settingsProps> = ({ children }) => {
 
     return (
         <Page>
-            <section className="settings">
+            <Section>
                 <AccountHeader title="Settings">
                     <ArrowBack />
                 </AccountHeader>
@@ -259,7 +260,7 @@ const Settings: React.FC<settingsProps> = ({ children }) => {
                     Log out
                 </Button>
 
-            </section>
+            </Section>
         </Page>
     )
 }

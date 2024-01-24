@@ -12,7 +12,7 @@ const { Transaction } = require("../class/transaction")
 Transaction.create({
 	type: "receive",
 	amount: 1000,
-	source: "owner@mail.com"
+	source: "stripe"
 })
 
 Transaction.create({
